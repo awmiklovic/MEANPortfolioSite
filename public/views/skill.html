@@ -1,0 +1,22 @@
+    <h2 class="section-title">Technologies</h2>
+        <div class="section-box timeline-box-inner skill-row hidden-load">
+            <h5>Backend</h5>
+            <div class="row">
+                <div ng-repeat="skill in skills | filter: {cat:'backend'}">
+                    <div class="col-xs-6 col-sm-3 skill">
+                        <img ng-src="{{skill.imgURL}}" width="100%" style="margin-bottom:15px"><br>{{skill.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-box timeline-box-inner skill-row hidden-load">
+            <h5>Frontend</h5>
+            <div class="row">
+                <div ng-repeat="skill in skills | filter: {cat:'frontend'}">
+                    <div class="col-xs-6 col-sm-3 skill" style="margin-bottom:35px;">
+                        <img ng-src="{{skill.imgURL}}" style="margin-bottom:15px;"></img><br>{{skill.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

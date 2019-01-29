@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+  <h1>Skills</h1>
+  <ul ng-repeat="skill in skills">
+    <li>{{skill.name}} - <img src="{{skill.imgURL}}" width="100px"></img> - <span ng-click="deleteSkill(skill._id)">Delete</span></li>
+  </ul>
+  <form ng-submit="uploadPic(picFile)">
+    <input type="text" ng-model="name" placeholder="Skill Name"></input>
+    <input type="file" ngf-select ng-model="picFile" name="file"    
+         accept="image/.png" ngf-max-size="2MB" required
+         ngf-model-invalid="errorFile">
+    <select ng-model="cat" ng-init="cat='frontend'">
+      <option value="frontend">Frontend</option>
+      <option value="backend">Backend</option>
+    </select>
+    <input type="submit"></input>
+  </form>
+
+  </div>

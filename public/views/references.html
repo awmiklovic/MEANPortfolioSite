@@ -1,0 +1,27 @@
+<h2 class="section-title">References</h2>
+<div class="section-box" ng-controller="testimonialCtrl">
+    <div class="bx-wrapper" style="max-width: 100%; margin: 0px auto;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative;height: 282px;">
+        <slick autoplay="true" speed="800" next-arrow=".slider-prev" prev-arrow=".slider-next" class="ref-slider" style="width: 100%%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
+            <div ng-repeat="testi in testimonialsApproved" style="float: left; list-style: none; position: relative; width: 500px;" class="bx-clone">
+                <div class="ref-box">
+                    <div class="person-speech">
+                        <p>{{testi.testimonial.testimonialBody}}</p>
+                    </div>
+                    <div class="person-info clearfix">
+                        <img class="person-img" ng-src="{{testi.imgURL}}" height="100px" alt="Headshot">
+                        <div class="person-name-title">
+                            <span class="person-name">{{testi.firstName}} {{testi.lastName}}</span>
+                            <span class="person-title">{{testi.company}}, {{testi.position}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </slick>
+    </div>
+    <div class="bx-controls"></div></div>
+        <div class="ref-slider-nav">
+            <span id="ref-slider-prev" class="slider-prev"><a ng-click="slickConfig.method.slickPrev()" class="bx-next" href=""><i class="rsicon rsicon-chevron_right"></i></a></span>
+            <span id="ref-slider-next" class="slider-next"><a class="bx-prev" href=""><i class="rsicon rsicon-chevron_left"></i></a></span>
+        </div>
+    </div>
+</div>

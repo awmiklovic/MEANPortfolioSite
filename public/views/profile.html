@@ -1,0 +1,73 @@
+<section id="about" class="section-about">
+    <div class="section-box">
+        <div class="profile">
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="profile-photo"><img src="{{headshot}}" alt="{{name}}"></div>
+                    <form ng-show="{{isAdmin}}">
+                        <input type="file" ngf-select ng-model="picFile" name="file"    
+                             accept="image/.png" ngf-max-size="2MB" required
+                             ngf-model-invalid="errorFile" style="margin-bottom:15px">
+                        <a class="btn btn-md btn-border ripple" ng-click="uploadPic(picFile)">Upload</a>
+                    </form>
+                </div>
+                <div class="col-xs-7">
+                    <div class="profile-info">
+                        <div class="profile-preword"><span>Hello</span></div>
+                        <h1 class="profile-title"><span>I'm</span> {{name}}</h1>
+
+                        <h2 class="profile-position" style="margin-bottom:15px;">
+                            <span class="cont" onaftersave="updateContent()" editable-text="position" e-form="positionBtnForm" edit-disabled="false" buttons="no">
+                                {{position}}
+                                 <i class="fa fa-pencil" ng-click="positionBtnForm.$show()" ng-hide="positionBtnForm.$visible || {{!isAdmin}} "></i>
+                            </span>
+                        </h2>
+                        <a href="http://www.brunch.digital" target="_blank">brunch.digital</a>
+                    </div>
+	                    <ul class="profile-list">
+	                        <li class="clearfix">
+	                            <strong class="title">Age</strong>
+	                            <span class="cont" onaftersave="updateContent()" editable-text="age" e-form="ageBtnForm" edit-disabled="false" buttons="no">{{age}}
+                                    <i class="fa fa-pencil" ng-click="ageBtnForm.$show()" ng-hide="textBtnForm.$visible || {{!isAdmin}}"></i>
+                                </span>
+	                        </li>
+	                        <li class="clearfix">
+	                            <strong class="title">E-mail</strong>
+	                            <span class="cont" onaftersave="updateContent()" editable-text="email" e-form="emailBtnForm" edit-disabled="false" buttons="no">
+                                    <a href="mailto:{{email}}">{{email}}</a>
+                                    <i class="fa fa-pencil" ng-click="emailBtnForm.$show()" ng-hide="textBtnForm.$visible || {{!isAdmin}} "></i>
+                                </span>
+	                        </li>
+	                        <li class="clearfix">
+	                            <strong class="title">Location</strong>
+	                            <span class="cont" onaftersave="updateContent()" editable-text="phone" e-form="phoneBtnForm" edit-disabled="false" buttons="no">
+                                    <a href="tel:+12562548456">{{phone}}</a>
+                                    <i class="fa fa-pencil" ng-click="phoneBtnForm.$show()" ng-hide="textBtnForm.$visible || {{!isAdmin}} "></i>
+                                </span>
+	                        </li>
+	                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="profile-social">
+            <ul class="social">
+                <div class="row">
+                    <div class="col-sm-6 left">
+                        <a class="rsicon btn btn-lg btn-border ripple" href="/" style="background:white;margin:5px 20px;">Download Resume</a>
+                    </div>
+                    <div class="col-sm-6 right">
+                        <li><a class="ripple-centered" href="#" target="_blank"><i class="rsicon rsicon-linkedIn"></i></a></li>    
+                        <li><a class="ripple-centered" href="#" target="_blank"><i class="rsicon rsicon-github"></i></a></li>
+                    </div>
+                </div>
+            </ul>
+
+        </div>
+    </div>
+    <div class="section-txt-btn">
+        <p onaftersave="updateContent()" editable-textarea="intro" e-form="introBtnForm" edit-disabled="false" buttons="no" blur="submit">
+            {{intro}}
+            <i class="fa fa-pencil" ng-click="introBtnForm.$show()" ng-hide="textBtnForm.$visible || {{!isAdmin}} "></i>
+        </p>
+    </div>
+</section>

@@ -1,0 +1,182 @@
+<div class="row dashboard" spellcheck="false">
+
+	<div class="col-sm-4" ng-hide="{{isAdmin}}">
+		<div class="col-sm-12 timeline-box-inner" style="margin-bottom:15px;" ng-controller="userCtrl" ng-init="testimonialInit()">
+				<img src="{{profile.imgURL}}" style="margin-bottom:15px;"/>
+				<form>
+					<input type="file" ngf-select ng-model="picFile" name="file"    
+						     accept="image/.png" ngf-max-size="2MB" required
+						     ngf-model-invalid="errorFile" style="margin-bottom:15px">
+					<small>Max File Size: 2MB</small>
+					<a class="btn btn-md btn-border ripple" style="width:100%" ng-click="uploadPic(picFile)">Upload</a>
+				</form>
+
+				<ul class="profile-info">
+					<small>First Name</small>
+					<li class="iseditable" editable-text="profile.firstName" e-form="firstBtnForm" edit-disabled="false" buttons="no" blur="submit" onaftersave="updateUser()">
+						{{profile.firstName}}
+						<i class="fa fa-pencil" ng-click="firstBtnForm.$show()" ng-hide="firstBtnForm.$visible || role!='admin' "></i>
+  					</li>
+  					<small>Last Name</small>
+					<li class="iseditable" editable-text="profile.lastName" e-form="lastBtnForm" edit-disabled="false" buttons="no" blur="submit" onaftersave="updateUser()">
+						{{profile.lastName}}
+						<i class="fa fa-pencil" ng-click="lastBtnForm.$show()" ng-hide="lastBtnForm.$visible || role!='admin' "></i>
+  					</li> 
+  					<small>Email</small>
+					<li class="iseditable" editable-text="profile.email" e-form="emailBtnForm" edit-disabled="true" buttons="no" blur="submit" onaftersave="updateUser()">
+						{{profile.email}}
+  					</li>
+  					<small>Company</small>
+					<li class="iseditable" editable-text="profile.company" e-form="compBtnForm" edit-disabled="false" buttons="no" blur="submit" onaftersave="updateUser()">
+						{{profile.company}}
+						<i class="fa fa-pencil" ng-click="compBtnForm.$show()" ng-hide="compBtnForm.$visible || role!='admin' "></i>
+  					</li> 
+  					<small>Position</small>
+					<li class="iseditable" editable-text="profile.position" e-form="profileBtnForm" edit-disabled="false" buttons="no" blur="submit" onaftersave="updateUser()">
+						{{profile.position}}
+						<i class="fa fa-pencil" ng-click="profileBtnForm.$show()" ng-hide="profileBtnForm.$visible || role!='admin' "></i>
+  					</li>  		  					 		  					  		  					 					
+				</ul>
+		</div>
+		<div class="row">
+			<div class="col-sm-12" style="margin-bottom:50px;">
+				<div ng-controller="DatePicker">
+					<div ng-show="interview==''">
+					    <div style="display:inline-block; min-height:200px;">
+					      <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
+					    </div>
+					    <div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="1" minute-step="30" show-meridian="ismeridian"></div>
+					    <button class="btn btn-primary btn-lg btn-block ripple" target="_blank" ng-click="open()">Schedule an Interview</button>
+					</div>
+				    <div ng-hide="interview==''">
+				    	<p>You have an interview scheduled for: <strong>{{interview}}</strong><br>
+				    	<strong>{{interviewTime}}</strong></p>
+				    	<p>Please note, I will be sending you a confirmation email to the email address specified in your profile and we can firm up the details.</p>
+				    	<button class="btn btn-primary btn-lg btn-block ripple" target="_blank" ng-click="editInterview()">Change interview date</button>
+				    </div>
+				    <script type="text/ng-template" id="myModalContent.html">
+				        <div class="modal-header">
+				            <h3 class="modal-title" id="modal-title">Shedule an Interview</h3>
+				        </div>
+				        <div class="modal-body" id="modal-body">
+				        <p>You have selected: <strong>{{dt | date:'fullDate' }}</strong><br>
+				        At the following time: <strong>{{mytime | date:'hh:mm:a'}}</strong></p>
+				        <p>Would you like to proceed with requesting this date for an interview?</p>
+				        <small>I will contact you with a confirmation email at the email address specified in your profile.</small>
+				        </div>
+				        <div class="modal-footer">
+				            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+				            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+				        </div>
+				    </script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-8" ng-class="{'col-sm-12':isAdmin}" style="margin-bottom:15px;">
+		<div class="col-sm-12 timeline-box-inner" style="margin-bottom:15px;" ng-controller="userCtrl" ng-init="testimonialInit()" ng-hide="isAdmin">
+			<div ng-hide="testimonial">
+				<h5>Are you a satisfied client?</h5>
+				<textarea placeholder="Tell the world about it!" style="margin-bottom:15px;height:100px;" ng-model="testimonialBody"></textarea>
+				<a class="btn btn-lg btn-border ripple" target="_blank" ng-click="addTestimonial()">Submit</a>
+			</div>
+
+			<div ng-show="testimonial">
+				<h5>Thank you for leaving me a testimonial!</h5>
+				<div class="alert alert-info" ng-hide="{{approved}}">Your testimonial is being approved.</div>
+				<p>"{{testimonial}}"</p>
+				<a class="btn btn-lg btn-border ripple" target="_blank" ng-click="editTestimonial()">Edit</a>
+			</div>
+		</div>
+
+
+		<div class="col-sm-12 timeline-box-inner" ng-controller="messagesCtrl">
+			<h5>Questions, or comments?</h5>
+			<div ng-show="{{isAdmin}}">
+				<select style="margin-bottom:15px;" ng-model="selectedUser" >
+					<option ng-repeat="user in users" value="{{user.email}}">{{user.email}}</option>
+				</select>
+			</div>
+			<ul class="messages">
+				<li ng-repeat="message in messages | filter: message.From=selectedUser | filter: message.To=selectedUser"><div class="small">{{message.name}} wrote:</div>{{message.message}}</li>
+			</ul>
+			<textarea style="height:100px;margin-bottom:15px;" placeholder="Get in touch!" ng-model="messageBody"></textarea>
+			<a class="btn btn-lg btn-border ripple" target="_blank" ng-click="addMessage()">Submit</a>
+		</div>
+	</div>
+
+	<div class="col-sm-12" ng-show="{{isAdmin}}">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="timeline-box-inner skill-wrap" style="margin-bottom:15px;" ng-controller="skillCtrl">
+				  	<h1>Technologies</h1>
+					<ul class="skill">
+					<li ng-repeat="skill in skills">{{skill.name}} - <img src="{{skill.imgURL}}" width="100px"></img> - {{skill.cat}} - <span ng-click="deleteSkill(skill._id)">Delete</span></li>
+					</ul>
+					<form ng-submit="uploadPic(picFile)">
+						<input type="text" ng-model="name" placeholder="Skill Name"></input>
+						<input type="file" ngf-select ng-model="picFile" name="file"    
+						     accept="image/.png" ngf-max-size="2MB" required
+						     ngf-model-invalid="errorFile">
+						<select ng-model="cat" ng-init="cat='frontend'">
+						  <option value="frontend">Frontend</option>
+						  <option value="backend">Backend</option>
+						</select>
+						<input type="submit"></input>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="timeline-box-inner abilities-wrap" style="margin-bottom:15px;" ng-controller="abilitiesCtrl">
+				  	<h1>Skills</h1>
+					<ul class="abilities">
+						<li ng-repeat="ability in abilities">
+							<h2>{{ability.name}}</h2>
+							<p>{{ability.desc}}</p>
+							<button ng-click="deleteAbility(ability._id)">Delete</button>
+						</li>
+					</ul>
+					<form ng-submit="createAbility()">
+						<input type="text" ng-model="name" placeholder="Ability Name"></input>
+						<textarea ng-model="desc" placeholder="Ability Description"></textarea>
+						<input type="submit"></input>
+					</form>
+				</div>
+			</div>
+		</div>
+
+			<div class="col-sm-12 timeline-box-inner project-wrap" style="margin-bottom:15px;" ng-controller="projectsCtrl">
+			  	<h1>Projects</h1>
+				<ul class="project">
+				<li ng-repeat="project in projects">{{project.name}} - <img src="{{project.imgURL}}" width="100px"></img> - {{project.desc}} - {{project.link}} - <span ng-click="deleteProject(project._id)">Delete</span></li>
+				</ul>
+				<form ng-submit="uploadPic(picFile)">
+				<input type="text" ng-model="name" placeholder="Project Name"></input>
+				<textarea ng-model="desc" placeholder="Project Description"></textarea>
+				<input type="text" ng-model="link" placeholder="Project Link"></input>
+				<input type="file" ngf-select ng-model="picFile" name="file"    
+				     accept="image/.png" ngf-max-size="2MB" required
+				     ngf-model-invalid="errorFile">
+				<input type="submit"></input>
+				</form>
+			</div>
+
+			<div class="col-sm-12 timeline-box-inner testimonial-wrap" style="margin-bottom:15px;" ng-controller="testimonialCtrl">
+			  	<h1>Testimonials</h1>
+					<div ng-repeat="testimonial in testimonialsUnapproved" style="margin-bottom:35px;">
+						<small>{{testimonial.firstName}} {{testimonial.lastName}} wrote:</small><br>
+						{{testimonial.testimonial.testimonialBody}}
+						<a ng-click="approveTestimonial(testimonial.email)">Approve</a>
+					</div>
+			</div>
+
+			<div class="col-sm-12 timeline-box-inner" ng-controller="userCtrl" style="margin-bottom:50px;">
+				<h5>Users</h5>
+				<li ng-repeat="user in allUsers">{{user.firstName}} - {{user.email}} - <a ng-click="deleteUser(user._id)">delete</a></li>
+			</div>
+
+		
+	</div>
+</div>

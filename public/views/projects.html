@@ -1,0 +1,16 @@
+<section>
+  <h2 class="section-title">Projects</h2>
+  <div class="row project" ng-repeat="project in projects" style="margin-bottom:35px;">
+    <div class="col-sm-6 left hidden-load">
+      <div class="timeline-box-inner" style="height:350px;">
+        <h3>{{project.name}}</h3>
+        <p>{{project.desc}}</p>
+      </div>
+    </div>
+    <div class="col-sm-6 right hidden-load">
+      <a href="{{project.link}}" class="project-link">
+        <div class="project-img" style="height:350px;background-image:url('{{project.imgURL}}');"></div>
+      </a>
+        </div>
+  </div>
+</section>

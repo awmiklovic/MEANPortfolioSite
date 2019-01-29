@@ -1,0 +1,13 @@
+<div id="text-section" class="section-text text-center">
+	<h2 class="section-title">About This Website</h2>  
+    <div class="section-box">
+    	<p onaftersave="updateContent()" editable-textarea="about" e-form="aboutBtnForm" edit-disabled="false" buttons="no" blur="submit">
+    		{{about}}
+    		 <i class="fa fa-pencil" ng-click="aboutBtnForm.$show()" ng-hide="textBtnForm.$visible || {{!isAdmin}} "></i>
+    	</p>
+    	<p>
+			<a class="btn btn-lg btn-border ripple" target="_blank" href="#/register" style="margin-right:5px;">Register</a>
+			<a class="btn btn-lg btn-border ripple" target="_blank" href="#/login">Login</a>
+		</p>
+    </div>
+</div>
